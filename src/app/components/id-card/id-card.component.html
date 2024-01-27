@@ -1,0 +1,82 @@
+<div class="container py-3">
+  <div class="row">
+      <div class="col-12 col-sm-8 col-md-6 mx-auto">
+          <div id="pay-invoice" class="card">
+              <div class="card-body">
+                  <div class="card-title">
+                      <h2 class="text-center">Convert To card number with (-)</h2>
+                  </div>
+                  <hr>
+                  <form action="" method="post" novalidate="novalidate">
+                      <input type="hidden" id="x_first_name" name="x_first_name" value="">
+                      <input type="hidden" id="x_last_name" name="x_last_name" value="">
+                      <input type="hidden" id="x_card_num" name="x_card_num" value="">
+                      <input type="hidden" id="x_exp_date" name="x_exp_date" value="">
+                      <div class="form-group text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><i class="text-muted fa fa-cc-visa fa-2x"></i></li>
+                            <li class="list-inline-item"><i class="fa fa-cc-mastercard fa-2x"></i></li>
+                            <li class="list-inline-item"><i class="fa fa-cc-amex fa-2x"></i></li>
+                            <li class="list-inline-item"><i class="fa fa-cc-discover fa-2x"></i></li>
+                        </ul>
+                      </div>
+                      <div class="form-group">
+                        <!-- <label>Welcome To Mocha Converter</label> -->
+                        <h3>Welcome To Card Converter</h3>
+                      </div>
+                      <div class="form-group has-success">
+                          <label for="cc-name" class="control-label">Card Number before Pipe</label>
+                          <input [(ngModel)]="cardNumber" #ivalue id="cc-number"  name="cc-number"  class="form-control cc-number identified visa"  data-val="true" data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number" autocomplete="cc-number">
+                          <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
+                      </div>
+                      <div class="form-group">
+                          <label for="cc-number" class="control-label">Card number after Pipe</label>
+
+                          <span  class="help-block p-3" data-valmsg-for="cc-number" data-valmsg-replace="true">{{ cardNumber | creditCard }}</span>
+                      </div>
+                      <div class="row">
+                      </div>
+                     <div class="text-center">
+
+                          <button id="payment-button" class="btn btn-lg btn-success btn-block my-3">
+
+                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                              <span id="payment-button-amount">Convert</span>
+                              <span id="payment-button-sending" style="display:none;">Sending…</span>
+                          </button>
+                      </div>
+                  </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!--
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">National ID</span>
+  </div>
+  <input type="text" #cardNumber class="form-control" placeholder="Enter your ID..." aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Format</span>
+  </div>
+  <input type="text" #format class="form-control" placeholder="Enter The Format..." aria-label="Username" aria-describedby="basic-addon1" >
+</div>
+<div class="d-inline p-8 bg-dark text-white">d-inline</div>
+
+<button id="payment-button" class="btn btn-lg btn-success btn-block my-3" >
+  <i class="fa fa-lock fa-lg"></i>&nbsp;
+  <span id="payment-button-amount">Show</span>
+  <span id="payment-button-sending" style="display:none;">Sending…</span>
+</button> -->
+
+<!-- Done -->
+ <!-- show here -->
+    <!-- <p>Birth Year: {{ }}</p> -->
+    <!-- <p>Full Date: {{"29909011509345"  | nationalIDNumberPipe:"Full Date" }}</p>
+    <p>Birth Month: {{"29909011509345"  | nationalIDNumberPipe:"MM" }}</p>
+    <p>Birth Day: {{"29909011509345"  | nationalIDNumberPipe:"DD" }}</p>
+    <p>Birth Year: {{"29909011509345"  | nationalIDNumberPipe:"YY" }}</p> -->
