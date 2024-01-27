@@ -6,6 +6,7 @@ import { Iproduct } from '../../models/iproduct';
 import { ShadowProductDirective } from '../../directives/shadow-product.directive';
 import { BehaviorSubject } from 'rxjs';
 import { CartServiceService } from '../../servics/cart-service.service';
+import { CartItem } from '../../models/cart-product';
 
 @Component({
   selector: 'app-product',
@@ -132,7 +133,4 @@ export class ProductComponent implements OnChanges  {
 }
 
 
-export interface CartItem {
-  product: Iproduct;
-  quantity: number;
-}
+
