@@ -11,6 +11,7 @@ import { Iproduct } from '../../models/iproduct';
 import { ShadowProductDirective } from '../../directives/shadow-product.directive';
 import { BehaviorSubject } from 'rxjs';
 import { CartItem } from '../../models/cart-product';
+import { ProductServiceService } from '../../servics/product-service.service';
 
 @Component({
   selector: 'app-product',
@@ -34,7 +35,9 @@ export class ProductComponent implements OnChanges {
 
   currentItems: CartItem[] = this.cartItemsSubject.value;
 
-  constructor() {
+
+
+  constructor(private productService: ProductServiceService) {
     this.products = [
       {
         id: 10,
@@ -66,7 +69,7 @@ export class ProductComponent implements OnChanges {
       {
         id: 40,
         name: 'Camera',
-        quantity: 0,
+        quantity: 8,
         price: 6000,
         imgUrl:
           'https://images.pexels.com/photos/51383/photo-camera-subject-photographer-51383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -84,7 +87,7 @@ export class ProductComponent implements OnChanges {
       {
         id: 60,
         name: 'Smartwatch',
-        quantity: 3,
+        quantity: 9,
         price: 3000,
         imgUrl:
           'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
@@ -103,8 +106,11 @@ export class ProductComponent implements OnChanges {
   NotifyToUpdate() {
     for (let i = 0; i < this.currentItems.length; i++) {
       const item = this.currentItems[i];
-      if (item.product.quantity > 0) {
+      if (item.product.quantity === 0) {
+
         item.product.quantity -= 1;
+      }else if(item.product.quantity > 0){
+        item.product.quantity -= item.quantity
       }
     }
     this.cartItemsSubject.next([...this.currentItems]);
@@ -161,7 +167,9 @@ export class ProductComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.filterProduct();
+    this.filterdProducts = this.productService.getProductByCategoryId(this.recivedselectedCatId);
+
+    // this.filterProduct();
     console.log(this.currentItems);
   }
 }
