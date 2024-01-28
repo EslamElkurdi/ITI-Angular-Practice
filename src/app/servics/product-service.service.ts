@@ -80,23 +80,26 @@ export class ProductServiceService {
     return this.products.filter((prd)=>prd.catId==catId)
   }
 
-//   Add a custom service ‘Products Service’: Done.
 
-// In the service add these functions (Depending on the classes you created before):
+// What’s the meaning of ProvidedIn: ‘root’, in the service @injectable function? : Done
+//Answer>>>>:
+// When you set providedIn to 'root',
+// you are telling Angular to provide the service at the root level of the application.
+// This means that Angular will create a single instance of the service and make it available to all components, services, and directives in the application.
 
-// getProductsByCatID(catID): Products []
-
-// getProductByID(prodID): Product
-
-// In Shopping Cart Component, and ProductDetails Component use the previous service instead of using the classes directly.
-
-// What’s the meaning of ProvidedIn: ‘root’, in the service @injectable function?
 
 // Explain the following statement: “A service becomes singleton when we apply providedIn property of @Injectable decorator or Declare service in the providers’ array of @ngModule”
+//Answer>>>> When you apply the providedIn property of the @Injectable decorator or declare a service in the providers array of the @NgModule decorator,
+// you are telling Angular to create a single instance of the service and provide it to all components that depend on it.
+
 
 // Services in Angular are using Dependency Injection; you’ll need to inject the service in your component constructor, how?
+//Answer>>>>:
+// 1- Import the service
+// 2- Add the service as a constructor parameter
+// 3- Use the service in the component.
 
-// getProductsByCatID(catID): Products [] {}
+
 
 
 

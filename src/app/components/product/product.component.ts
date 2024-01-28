@@ -38,62 +38,8 @@ export class ProductComponent implements OnChanges {
 
 
   constructor(private productService: ProductServiceService) {
-    this.products = [
-      {
-        id: 10,
-        name: 'Mobile',
-        quantity: 4,
-        price: 4000,
-        imgUrl:
-          'https://m.media-amazon.com/images/I/61Y6ue-XHHL._AC_SL1500_.jpg',
-        catId: 1,
-      },
-      {
-        id: 20,
-        name: 'Laptop',
-        quantity: 4,
-        price: 8000,
-        imgUrl:
-          'https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/3.webp',
-        catId: 1,
-      },
-      {
-        id: 30,
-        name: 'Tablet',
-        quantity: 2,
-        price: 2000,
-        imgUrl:
-          'https://images.pexels.com/photos/430546/pexels-photo-430546.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        catId: 2,
-      },
-      {
-        id: 40,
-        name: 'Camera',
-        quantity: 8,
-        price: 6000,
-        imgUrl:
-          'https://images.pexels.com/photos/51383/photo-camera-subject-photographer-51383.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        catId: 3,
-      },
-      {
-        id: 50,
-        name: 'Headphones',
-        quantity: 5,
-        price: 2500,
-        imgUrl:
-          'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        catId: 4,
-      },
-      {
-        id: 60,
-        name: 'Smartwatch',
-        quantity: 9,
-        price: 3000,
-        imgUrl:
-          'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        catId: 5,
-      },
-    ];
+
+    this.products = this.productService.getAllProducts();
     this.onBuyTotalProducts = new EventEmitter();
   }
 
@@ -168,9 +114,6 @@ export class ProductComponent implements OnChanges {
 
   ngOnChanges() {
     this.filterdProducts = this.productService.getProductByCategoryId(this.recivedselectedCatId);
-
-    // this.filterProduct();
-    console.log(this.currentItems);
   }
 }
 
