@@ -4,27 +4,31 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Iproduct } from '../../models/iproduct';
 import { ShadowProductDirective } from '../../directives/shadow-product.directive';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { CartItem } from '../../models/cart-product';
 import { ProductServiceService } from '../../servics/product-service.service';
+import { Router, RouterLink } from '@angular/router';
+import { ApiService } from '../../servics/api.service';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [FormsModule, CommonModule, ShadowProductDirective],
+  imports: [FormsModule, CommonModule, ShadowProductDirective,RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
 })
-export class ProductComponent implements OnChanges {
+export class ProductComponent implements OnChanges,OnInit,OnDestroy {
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   cartItems$ = this.cartItemsSubject.asObservable();
 
-  products: Iproduct[];
+  products: Iproduct[] = [] as Iproduct[];
   filterdProducts!: Iproduct[];
   cartProducts!: CartItem[];
   productToShoppingCart!: Iproduct;
@@ -32,21 +36,36 @@ export class ProductComponent implements OnChanges {
   @Output() onBuyTotalProducts: EventEmitter<CartItem[]>;
   @Input() recivedselectedCatId!: number;
   @Input() recivedProducts!: { name: Iproduct; quantity: number }[];
+  private productSubscription!: Subscription;
 
   currentItems: CartItem[] = this.cartItemsSubject.value;
 
 
 
-  constructor(private productService: ProductServiceService) {
+  constructor(private apiService: ApiService, private router:Router) {
 
-    this.products = this.productService.getAllProducts();
     this.onBuyTotalProducts = new EventEmitter();
+  }
+  ngOnDestroy(): void {
+    console.log('destroyed');
+    this.productSubscription.unsubscribe();
+
+  }
+  ngOnInit(): void {
+    this.productSubscription = this.apiService.getAllProducts().subscribe((data)=>{
+      this.products = data;
+      this.filterdProducts = this.products
+    })
   }
 
   filterProduct() {
     this.filterdProducts = this.products.filter(
       (prd) => prd.catId == this.recivedselectedCatId
     );
+  }
+
+  goToDetails(id:number){
+    this.router.navigate(['/Details',id])
   }
 
   NotifyToUpdate() {
@@ -113,7 +132,9 @@ export class ProductComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.filterdProducts = this.productService.getProductByCategoryId(this.recivedselectedCatId);
+    this.apiService.getProductsByCatId(this.recivedselectedCatId).subscribe((data)=>{
+      this.filterdProducts = data;
+    })
   }
 }
 

@@ -4,14 +4,21 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 import { ContactUsComponent } from './components/contact-us/contact-us.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { DetailsComponent } from './components/details/details.component';
+import { LoginComponent } from './components/login/login.component';
+import { authGuardGuard } from './guard/auth-guard.guard';
+import { AdminComponent } from './components/admin/admin.component';
 
 export const routes: Routes = [
 
   {path:'', redirectTo:'Home',pathMatch:'full'},
   {path:'Home', component: HomeComponent},
+  {path:'Admin', component: AdminComponent},
   {path:'About', component: AboutUsComponent},
   {path:'Contact', component: ContactUsComponent},
-  {path:'Product', component: OrderComponent},
+  {path:'Product', component: OrderComponent, canActivate : [authGuardGuard]},
+  {path:'Login', component: LoginComponent},
+  {path:'Details/:id', component: DetailsComponent},
   {path:'**', component: NotFoundComponent},
 ];
 

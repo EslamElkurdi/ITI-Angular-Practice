@@ -2,15 +2,17 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { CartItem, ProductComponent } from '../../product/product.component';
 import { CommonModule } from '@angular/common';
 import { Icategory } from '../../../models/icategory';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CheckoutComponent } from '../../checkOut/checkout/checkout.component';
 import { IdCardComponent } from '../../id-card/id-card.component';
+import { ApiService } from '../../../servics/api.service';
 
 @Component({
   selector: 'app-order',
@@ -22,11 +24,12 @@ import { IdCardComponent } from '../../id-card/id-card.component';
     CommonModule,
     FormsModule,
     IdCardComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './order.component.html',
   styleUrl: './order.component.css',
 })
-export class OrderComponent {
+export class OrderComponent  implements OnInit{
   @ViewChild(ProductComponent) child!: ProductComponent;
 
   ngAfterViewInit() {
@@ -39,19 +42,26 @@ export class OrderComponent {
 
   // @Output() onDeleteProduct: EventEmitter<{ name: Iproduct, quantity: number }> ;
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     // this.onDeleteProduct = new EventEmitter<{ name: Iproduct, quantity: number }>()
 
     this.cartProducts = [];
 
-    this.categories = [
-      { id: 10, name: 'Mobile' },
-      { id: 20, name: 'Laptop' },
-      { id: 30, name: 'Tablet' },
-      { id: 40, name: 'Camera' },
-      { id: 50, name: 'Headphones' },
-      { id: 60, name: 'Smartwatch' },
-    ];
+    // this.categories = [
+    //   { id: 10, name: 'Mobile' },
+    //   { id: 20, name: 'Laptop' },
+    //   { id: 30, name: 'Tablet' },
+    //   { id: 40, name: 'Camera' },
+    //   { id: 50, name: 'Headphones' },
+    //   { id: 60, name: 'Smartwatch' },
+    // ];
+
+
+  }
+  ngOnInit(): void {
+    this.apiService.getAllCategories().subscribe((data)=>{
+      this.categories = data;
+    })
   }
 
   callChildMethodToRemoveProduct(product: CartItem) {

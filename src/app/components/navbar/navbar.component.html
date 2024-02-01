@@ -19,6 +19,11 @@
         <a class="nav-link" routerLinkActive="active" routerLink="/About">About Us</a>
         <a class="nav-link" routerLinkActive="active" routerLink="/Product">Products</a>
         <a class="nav-link" routerLinkActive="active" routerLink="/Contact">Contact Us</a>
+        <a class="nav-link" routerLinkActive="active" routerLink="/Admin">Admin</a>
+        <a [hidden]="isLogged" class="nav-link" routerLinkActive="active" routerLink="/Login">Login</a>
+        <a [hidden]="!isLogged" (click)="logout()" class="nav-link" routerLinkActive="active" routerLink="/Login">Logout</a>
+
+        <!-- <a class="nav-link" routerLinkActive="active">Logout</a> -->
       </div>
     </div>
   </div>
